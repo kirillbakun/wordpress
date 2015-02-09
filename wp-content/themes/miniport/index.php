@@ -30,7 +30,7 @@
         </header>
         <div class="container">
             <div class="row">
-                <div class="4u">
+                <!--<div class="4u">
                     <section class="box style1">
                         <span class="icon featured fa-comments-o"></span>
                         <h3>Consequat lorem</h3>
@@ -50,7 +50,14 @@
                         <h3>Feugiat posuere</h3>
                         <p>Ornare nulla proin odio consequat sapien vestibulum ipsum primis sed amet consequat lorem dolore.</p>
                     </section>
-                </div>
+                </div>-->
+
+                <?php if(have_posts()): ?>
+                    <?php while(have_posts()): the_post(); ?>
+                        <h1><?php the_title(); ?></h1>
+                        <p><?php the_content(); ?></p>
+                    <?php endwhile; ?>
+                <?php endif; ?>
             </div>
         </div>
         <footer>
