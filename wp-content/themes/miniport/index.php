@@ -123,7 +123,7 @@
         <div>
             <div class="row">
                 <div class="12u">
-                    <form method="post" action="#">
+                    <form method="post" id="feedback-form" action="#">
                         <div>
                             <div class="row">
                                 <div class="6u">
@@ -146,7 +146,7 @@
                             <div class="row 200%">
                                 <div class="12u">
                                     <ul class="actions">
-                                        <li><input type="submit" value="Send Message" /></li>
+                                        <li><input type="submit" id="send-message" value="Send Message" /></li>
                                         <li><input type="reset" value="Clear Form" class="alt" /></li>
                                     </ul>
                                 </div>

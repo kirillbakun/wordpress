@@ -16,6 +16,8 @@
 		}
 	});
 
+    window.ajax_url = '/wp-admin/admin-ajax.php';
+
 	$(function() {
 
 		var	$window = $(window),

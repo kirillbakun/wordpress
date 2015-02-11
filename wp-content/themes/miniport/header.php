@@ -14,6 +14,7 @@
     <script src="<?php echo $directory_uri; ?>/js/jquery.min.js"></script>
     <script src="<?php echo $directory_uri; ?>/js/jquery.scrolly.min.js"></script>
     <script src="<?php echo $directory_uri; ?>/js/skel.min.js"></script>
+    <script src="<?php echo $directory_uri; ?>/js/feedback_form.js"></script>
 
     <script src="<?php echo $directory_uri; ?>/js/init.js"></script>
     <noscript>
