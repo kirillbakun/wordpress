@@ -1,6 +1,12 @@
 <?php
-    function get_content_get_posts($post_type = 'post', $additional_fields = array(), $position_field = null, $offset = 0, $limit = null) {
+require_once('post_params.php');
+
+class PostManager
+{
+    public function getPosts($post_type, $limit = null, $offset = 0) {
         global $wpdb;
+        $additional_fields = PostParams::getAdditionalFields($post_type);
+        $position_field = (!empty($additional_fields['position_field'])) ? $additional_fields['position_fields'] : null;
 
         if(!empty($position_field)) {
             $query = "SELECT p.ID, p.post_title, pm.meta_key, pm.meta_value
@@ -30,15 +36,15 @@
             }
         }
 
-        $posts_main_data = $wpdb->get_results($query);
+        $posts_data = $wpdb->get_results($query);
 
-        if(!empty($additional_fields) && !empty($posts_main_data)) {
+        if(!empty($additional_fields) && !empty($posts_data)) {
             $items_keys = '';
-            foreach($posts_main_data as $key => $posts_main_data_item) {
-               $items_keys .= $posts_main_data_item->ID .', ';
+            foreach($posts_data as $key => $posts_main_data_item) {
+                $items_keys .= $posts_main_data_item->ID .', ';
 
-                $posts_main_data[$posts_main_data_item->ID] = $posts_main_data_item;
-                unset($posts_main_data[$key]);
+                $posts_data[$posts_main_data_item->ID] = $posts_main_data_item;
+                unset($posts_data[$key]);
             }
             $items_keys = trim($items_keys, ', ');
 
@@ -52,17 +58,18 @@
             $query = "SELECT pm.post_id, pm.meta_key, pm.meta_value
                         FROM wp_postmeta pm
                         WHERE pm.post_id IN (" .$items_keys .")"
-                        .$additional_fields_values;
+                .$additional_fields_values;
             $posts_additional_data = $wpdb->get_results($query);
 
             foreach($posts_additional_data as $additional_data_item) {
                 $post_id = $additional_data_item->post_id;
-                if(isset($posts_main_data[$post_id])) {
+                if(isset($posts_data[$post_id])) {
                     $additional_data_item_key = str_replace('wpcf-', '', $additional_data_item->meta_key);
-                    $posts_main_data[$post_id]->$additional_data_item_key = $additional_data_item->meta_value;
+                    $posts_data[$post_id]->$additional_data_item_key = $additional_data_item->meta_value;
                 }
             }
         }
 
-        return $posts_main_data;
+        return $posts_data;
     }
+}

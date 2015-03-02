@@ -30,7 +30,11 @@
         </header>
         <div class="container">
             <div class="row">
-                <?php $what_i_do = get_content_get_posts('what_i_do', array('element_type', 'description'), 'position'); ?>
+                <?php
+                    $post_manager = new PostManager();
+                    $what_i_do = $post_manager->getPosts('what_i_do');
+                ?>
+
                 <?php foreach($what_i_do as $what_i_do_item): ?>
                     <div class="4u">
                         <section class="box style1">
